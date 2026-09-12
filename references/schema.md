@@ -28,7 +28,7 @@
 - `relative_path`：语料库内部的相对文件名；
 - `abstract`：明确识别出的摘要，没有则为空；
 - `keywords`：明确识别出的关键词，没有则为空；
-- `summary`：正式摘要和关键词的组合，没有正式摘要时为空；
+- `summary`：正式摘要和关键词的组合；没有正式摘要时仅可能包含关键词；
 - `content_level`：`metadata_abstract` 或 `metadata_only`；
 - `content_note`：说明内容是正式摘要/关键词还是仅元数据。
 

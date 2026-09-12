@@ -1,4 +1,4 @@
 interface:
   display_name: "共同体与志愿部门研究"
-  short_description: "基于本地共同体与非营利文献进行可追溯问答"
-    default_prompt: "Use $community-voluntary-sector-research to screen, extract evidence from, compare, and synthesize the local community and voluntary-sector literature corpus. Give source paths and state evidence gaps explicitly."
+  short_description: "检索公开目录并分析共同体与非营利文献"
+  default_prompt: "Use $community-voluntary-sector-research to search the public catalog by title, abstract, keywords, and metadata, or analyze a local full-text corpus when provided. Clearly distinguish catalog-level findings from full-text evidence and state coverage gaps."
