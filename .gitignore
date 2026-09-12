@@ -1,8 +1,11 @@
 references/corpus-config.json
 references/corpus-index.json
+references/corpus-coverage.json
 corpus-coverage.json
 references/corpus-coverage.json
 research-packet.md
+*.env
+*.key
 corpus/
 *.pdf
 *.docx

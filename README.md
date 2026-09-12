@@ -10,6 +10,8 @@
 - 主题与理论脉络梳理
 - 研究缺口识别
 - 来源路径和证据边界标注
+- 可选的受保护文献检索 API
+- 可公开分发的标题、摘要和关键词目录
 
 ## 使用方式
 
@@ -19,7 +21,12 @@
 4. 使用 `scripts/search_corpus.py` 检索候选文献；
 5. 使用 `scripts/extract_evidence.py` 提取正文证据；
 6. 使用 `scripts/make_research_packet.py` 生成可复核的研究包；
-7. 调用 skill 生成综述、比较报告或理论脉络。
+7. 如需公开目录，运行 `scripts/build_public_catalog.py`；
+8. 调用 skill 生成综述、比较报告或理论脉络。
+
+## 文献检索 API
+
+如需让其他人使用你的文献库，可先生成 `public-catalog.json`，再以 `--catalog public-catalog.json` 启动 `scripts/api_server.py`。公开目录只包含标题、正式摘要或已标注的短摘要摘录、关键词和来源元数据，不包含 PDF 或完整 Markdown。API 默认只监听本机；部署到服务器时必须配置 `LIT_API_KEY`，并建议放在 HTTPS 反向代理之后。接口文档见 `references/api.md`。
 
 示例命令：
 
@@ -27,6 +34,7 @@
 python scripts/search_corpus.py "志愿者领导力" --index references/corpus-index.json --collection "Nonprofit and Voluntary Sector Quarterly"
 python scripts/extract_evidence.py "志愿者领导力" --index references/corpus-index.json --limit 5
 python scripts/make_research_packet.py "志愿者领导力" --index references/corpus-index.json --output research-packet.md
+python scripts/build_public_catalog.py --config references/corpus-config.json --index references/corpus-index.json --output public-catalog.json
 ```
 
 示例请求：

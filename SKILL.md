@@ -19,6 +19,8 @@ description: "基于本地共同体、志愿服务、非营利组织与第三部
 
 详细流程和建议输出结构见 [references/research-workflow.md](references/research-workflow.md)。
 
+如果用户明确提供了已授权的文献 API 地址，先阅读 [references/api.md](references/api.md)，优先使用 `/api/v1/search` 和 `/api/v1/evidence`；公开目录模式通常只提供标题、摘要和关键词，不要把它误认为全文证据；不要在 URL 中传递 API Key，不要默认请求完整正文。
+
 ## 首次使用或语料更新
 
 先检查 `references/corpus-config.json` 的语料路径。运行以下命令建立或更新索引；它只读取语料，索引保存在本 skill 内：
@@ -62,3 +64,4 @@ python scripts/build_corpus_index.py --config references/corpus-config.json --ou
 - 对于未建立 Markdown 的 PDF，先报告覆盖缺口；只有用户明确要求时，才进行本地转换和质量复核。
 - 不把当前机器的绝对路径写入可公开分发的索引；公开版本只使用相对路径、示例配置和文献元数据。
 - 公开分发时使用 `references/corpus-config.example.json`，默认不写入 `absolute_path`；本地完整索引和覆盖率报告只保存在用户机器上。
+- API 远程模式只处理已授权的语料服务；默认只获取检索结果和短证据片段。除非用户明确授权并且服务端已开启全文权限，不请求完整 Markdown 或 PDF。

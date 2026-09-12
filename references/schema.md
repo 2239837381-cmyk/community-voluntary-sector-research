@@ -18,4 +18,20 @@
 
 如果配置了 `report_path`，覆盖率报告会写入该路径；相对路径以配置文件所在目录为基准。
 
+## 公开目录字段
+
+`public-catalog.json` 的每个文献项只包含：
+
+- `id`：由 PDF 相对路径生成的稳定标识；
+- `title`、`title_source`、`title_confidence`：标题及其可靠程度；
+- `collection`：文献集合或期刊目录；
+- `relative_path`：语料库内部的相对文件名；
+- `abstract`：明确识别出的摘要，没有则为空；
+- `keywords`：明确识别出的关键词，没有则为空；
+- `summary`：摘要或已标注的短 Markdown 摘录；
+- `content_level`：`metadata_abstract`、`metadata_summary` 或 `metadata_only`；
+- `content_note`：说明内容是正式摘要、短摘录还是仅元数据。
+
+公开目录不包含 `absolute_path`、`text` 或 PDF 二进制内容。
+
 公开分发时只保留相对路径和示例数据，不要把 `absolute_path` 或包含个人机器路径的完整索引提交到仓库。
