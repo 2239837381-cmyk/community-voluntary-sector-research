@@ -1,0 +1,14 @@
+{
+  "corpus_root": "<YOUR_CORPUS_ROOT>",
+  "include_absolute_path": false,
+  "report_path": "../corpus-coverage.json",
+  "excluded_directory_names": [
+    "qa_renders",
+    "literature-integrator",
+    "translated_markdown_sample",
+    "node_modules",
+    "dist",
+    "tmp",
+    "__pycache__"
+  ]
+}

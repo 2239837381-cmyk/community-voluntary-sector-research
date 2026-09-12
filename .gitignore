@@ -1,0 +1,12 @@
+references/corpus-config.json
+references/corpus-index.json
+corpus-coverage.json
+references/corpus-coverage.json
+research-packet.md
+corpus/
+*.pdf
+*.docx
+*.epub
+__pycache__/
+*.py[cod]
+.pytest_cache/

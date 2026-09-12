@@ -1,0 +1,62 @@
+import json
+import subprocess
+import sys
+import tempfile
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+SCRIPTS = ROOT / "scripts"
+sys.path.insert(0, str(SCRIPTS))
+
+from build_corpus_index import title_for  # noqa: E402
+from search_corpus import score, tokens  # noqa: E402
+
+
+class CorpusToolsTests(unittest.TestCase):
+    def test_title_recovery_priority(self):
+        title, source, confidence = title_for(
+            Path("CITE001.md"),
+            "---\ntitle: Front matter title\n---\n# Heading title\n",
+        )
+        self.assertEqual(title, "Front matter title")
+        self.assertEqual(source, "front_matter")
+        self.assertEqual(confidence, "high")
+
+    def test_identifier_is_marked_low_confidence(self):
+        title, source, confidence = title_for(Path("CITE015.md"), "## 摘要\n正文内容足够长。")
+        self.assertEqual(title, "CITE015")
+        self.assertEqual(source, "filename_identifier")
+        self.assertEqual(confidence, "low")
+
+    def test_index_uses_relative_paths_by_default(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root / "collection").mkdir()
+            (root / "collection" / "paper.md").write_text(
+                "# A useful paper\n\n" + "community volunteering evidence " * 30,
+                encoding="utf-8",
+            )
+            config = root / "config.json"
+            output = root / "index.json"
+            config.write_text(json.dumps({"corpus_root": "."}), encoding="utf-8")
+            subprocess.run(
+                [sys.executable, str(SCRIPTS / "build_corpus_index.py"), "--config", str(config), "--output", str(output)],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            document = json.loads(output.read_text(encoding="utf-8"))["documents"][0]
+            self.assertEqual(document["relative_path"], "collection/paper.md")
+            self.assertNotIn("absolute_path", document)
+
+    def test_search_score_prefers_title_match(self):
+        title_match = {"title": "志愿者领导力", "relative_path": "a.md", "summary": ""}
+        body_only = {"title": "其他主题", "relative_path": "b.md", "summary": "志愿者领导力"}
+        query_terms = tokens("志愿者领导力")
+        self.assertGreater(score(title_match, "志愿者领导力", query_terms), score(body_only, "志愿者领导力", query_terms))
+
+
+if __name__ == "__main__":
+    unittest.main()

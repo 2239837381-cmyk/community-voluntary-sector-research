@@ -1,0 +1,4 @@
+interface:
+  display_name: "共同体与志愿部门研究"
+  short_description: "基于本地共同体与非营利文献进行可追溯问答"
+    default_prompt: "Use $community-voluntary-sector-research to screen, extract evidence from, compare, and synthesize the local community and voluntary-sector literature corpus. Give source paths and state evidence gaps explicitly."
