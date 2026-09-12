@@ -139,7 +139,6 @@ def main() -> int:
             "abstract": section(text, SECTION_NAMES["abstract"]),
             "keywords": section(text, SECTION_NAMES["keywords"]),
             "markdown_path": relative,
-            "summary": clean(text[:1200]),
         }
 
     index_by_key: dict[tuple[str, str], dict[str, Any]] = {}
@@ -165,7 +164,6 @@ def main() -> int:
                 "title_confidence": indexed.get("title_confidence", "low"),
                 "abstract": "",
                 "keywords": "",
-                "summary": indexed.get("summary", ""),
                 "markdown_path": indexed.get("relative_path", ""),
             }
         if source is None:
@@ -176,19 +174,14 @@ def main() -> int:
                 "title_confidence": title_confidence,
                 "abstract": "",
                 "keywords": "",
-                "summary": "",
                 "markdown_path": "",
             }
         abstract = source["abstract"]
         keywords = source["keywords"]
-        summary = source.get("summary", "")
         if abstract:
             counts["with_abstract"] += 1
         else:
-            if summary:
-                counts["with_summary_fallback"] += 1
-            else:
-                counts["without_abstract_or_summary"] += 1
+            counts["without_abstract"] += 1
         if source["title_confidence"] == "low":
             counts["low_confidence_title"] += 1
         documents.append({
@@ -200,9 +193,9 @@ def main() -> int:
             "relative_path": relative,
             "abstract": abstract,
             "keywords": keywords,
-            "summary": " ".join(part for part in (abstract, summary, keywords) if part),
-            "content_level": "metadata_abstract" if abstract else ("metadata_summary" if summary else "metadata_only"),
-            "content_note": "formal abstract" if abstract else ("short Markdown excerpt; not necessarily the publisher abstract" if summary else "metadata only"),
+            "summary": " ".join(part for part in (abstract, keywords) if part),
+            "content_level": "metadata_abstract" if abstract else "metadata_only",
+            "content_note": "formal abstract and keywords" if abstract else "metadata only; no abstract was identified",
         })
     documents.sort(key=lambda item: (item["collection"], item["title"], item["relative_path"]))
     counts["total_pdfs"] = len(documents)

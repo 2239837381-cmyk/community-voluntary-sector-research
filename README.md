@@ -26,7 +26,7 @@
 
 ## 文献检索 API
 
-如需让其他人使用你的文献库，可先生成 `public-catalog.json`，再以 `--catalog public-catalog.json` 启动 `scripts/api_server.py`。公开目录只包含标题、正式摘要或已标注的短摘要摘录、关键词和来源元数据，不包含 PDF 或完整 Markdown。API 默认只监听本机；部署到服务器时必须配置 `LIT_API_KEY`，并建议放在 HTTPS 反向代理之后。接口文档见 `references/api.md`。
+如需让其他人使用你的文献库，可先生成 `public-catalog.json`，再以 `--catalog public-catalog.json` 启动 `scripts/api_server.py`。公开目录只包含标题、明确识别出的正式摘要、关键词和来源元数据；没有明确摘要的文献只保留元数据，不包含 PDF 或完整 Markdown。API 默认只监听本机；部署到服务器时必须配置 `LIT_API_KEY`，并建议放在 HTTPS 反向代理之后。接口文档见 `references/api.md`。
 
 示例命令：
 

@@ -28,9 +28,9 @@
 - `relative_path`：语料库内部的相对文件名；
 - `abstract`：明确识别出的摘要，没有则为空；
 - `keywords`：明确识别出的关键词，没有则为空；
-- `summary`：摘要或已标注的短 Markdown 摘录；
-- `content_level`：`metadata_abstract`、`metadata_summary` 或 `metadata_only`；
-- `content_note`：说明内容是正式摘要、短摘录还是仅元数据。
+- `summary`：正式摘要和关键词的组合，没有正式摘要时为空；
+- `content_level`：`metadata_abstract` 或 `metadata_only`；
+- `content_note`：说明内容是正式摘要/关键词还是仅元数据。
 
 公开目录不包含 `absolute_path`、`text` 或 PDF 二进制内容。
 
