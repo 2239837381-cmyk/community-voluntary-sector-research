@@ -80,5 +80,5 @@ python scripts/search_corpus.py "志愿者领导力" --index public-catalog.json
 - 对于未建立 Markdown 的 PDF，先报告覆盖缺口；只有用户明确要求时，才进行本地转换和质量复核。
 - 不把当前机器的绝对路径写入可公开分发的索引；公开版本只使用相对路径、示例配置和文献元数据。
 - 公开分发时使用 `references/corpus-config.example.json`，默认不写入 `absolute_path`；本地完整索引和覆盖率报告只保存在用户机器上。
-- 公开模式不启动 API、不请求外部服务器，只读取仓库中的 `public-catalog.json`。
+- 公开模式只读取仓库中的 `public-catalog.json`，不启动服务，也不请求外部服务器。
 - 公开目录只用于标题、正式摘要、关键词和元数据检索；完整 Markdown、PDF 和本地全文索引不随 skill 发布。
